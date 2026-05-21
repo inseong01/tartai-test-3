@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import { ORDER_STATUS, type OrderDetail, type OrderStatus } from "../queries";
+import { OrderStatusUpdater } from "./order-status-updater";
 
 type Props = {
   order: OrderDetail;
@@ -16,11 +14,10 @@ export function OrderDetailPanel({
   onStatusUpdate,
   isUpdating,
 }: Props) {
-  const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(
+  const currentStatus =
     (Object.keys(ORDER_STATUS) as OrderStatus[]).find(
       (k) => ORDER_STATUS[k] === order.status,
-    ) ?? "PENDING",
-  );
+    ) ?? "PENDING";
 
   return (
     <div className="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -71,28 +68,11 @@ export function OrderDetailPanel({
         <span className="text-sm font-semibold text-gray-900">
           합계 {order.totalAmount.toLocaleString()}원
         </span>
-        <div className="flex items-center gap-2">
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value as OrderStatus)}
-            className="text-sm border border-gray-300 rounded px-2 py-1.5 bg-white"
-          >
-            {(Object.entries(ORDER_STATUS) as [OrderStatus, string][]).map(
-              ([key, label]) => (
-                <option key={key} value={key}>
-                  {label}
-                </option>
-              ),
-            )}
-          </select>
-          <button
-            onClick={() => onStatusUpdate(selectedStatus)}
-            disabled={isUpdating}
-            className="px-3 py-1.5 text-sm text-white bg-blue-600 rounded hover:bg-blue-700 disabled:opacity-50"
-          >
-            {isUpdating ? "변경 중..." : "상태 변경"}
-          </button>
-        </div>
+        <OrderStatusUpdater
+          currentStatus={currentStatus}
+          onStatusUpdate={onStatusUpdate}
+          isUpdating={isUpdating}
+        />
       </div>
     </div>
   );
