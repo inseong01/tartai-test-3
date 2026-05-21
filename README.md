@@ -75,4 +75,6 @@ pnpm install
 pnpm dev
 ```
 
-[http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+[http://localhost:3000](http://localhost:3000) 또는 [https://tartai-test-3.vercel.app/](https://tartai-test-3.vercel.app/)에서 확인할 수 있습니다.
+
+> 서버가 슬립 상태로 전환된 상태일 수도 있어, 첫 요청 시 응답까지 다소 시간이 소요될 수 있습니다.
