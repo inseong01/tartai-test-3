@@ -7,7 +7,6 @@ import { useCreatePost } from "./hooks/use-create-post";
 import { useDeletePost } from "./hooks/use-delete-post";
 import { PostForm } from "./ui/post-form";
 import { PostList } from "./ui/post-list";
-import { PostDetailPanel } from "./ui/post-detail";
 import { ConfirmModal } from "@/components/confirm-modal";
 
 export function Posts() {
@@ -67,14 +66,10 @@ export function Posts() {
           selectedId={selectedId}
           onSelect={handleSelect}
           onDelete={handleDelete}
+          detail={detailData ?? null}
+          isDetailLoading={selectedId > 0 && isDetailLoading}
+          onClose={() => setSelectedId(0)}
         />
-      )}
-
-      {selectedId > 0 && isDetailLoading && (
-        <p className="text-sm text-gray-400">상세 불러오는 중...</p>
-      )}
-      {detailData && (
-        <PostDetailPanel post={detailData} onClose={() => setSelectedId(0)} />
       )}
 
       <ConfirmModal

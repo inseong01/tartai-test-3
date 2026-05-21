@@ -3,7 +3,6 @@
 import { useOrderDetail } from "./hooks/use-order-detail";
 import { useOrderList } from "./hooks/use-order-list";
 import { useOrderStatus } from "./hooks/use-order-status";
-import { OrderDetailPanel } from "./ui/order-detail";
 import { OrderList } from "./ui/order-list";
 
 type Props = {
@@ -39,15 +38,8 @@ export function Orders({ selectedId, onSelect }: Props) {
           orders={listData.content}
           selectedId={selectedId}
           onSelect={handleSelect}
-        />
-      )}
-
-      {selectedId !== "" && isDetailLoading && (
-        <p className="text-sm text-gray-400">상세 불러오는 중...</p>
-      )}
-      {detailData && (
-        <OrderDetailPanel
-          order={detailData}
+          detail={detailData ?? null}
+          isDetailLoading={selectedId !== "" && isDetailLoading}
           onClose={() => onSelect("")}
           onStatusUpdate={(status) => updateStatus(selectedId, status)}
           isUpdating={isStatusPending}

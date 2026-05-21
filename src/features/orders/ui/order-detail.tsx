@@ -35,7 +35,7 @@ export function OrderDetailPanel({
           onClick={onClose}
           className="text-gray-400 hover:text-gray-600 text-lg leading-none"
         >
-          ×
+          x
         </button>
       </div>
       <p className="text-xs text-gray-500 mb-3">{order.orderedAt}</p>
